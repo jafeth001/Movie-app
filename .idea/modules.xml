@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Movie-app.iml" filepath="$PROJECT_DIR$/.idea/Movie-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springfordemo/springfordemo.iml" filepath="$PROJECT_DIR$/springfordemo/springfordemo.iml" />
+    </modules>
+  </component>
+</project>
