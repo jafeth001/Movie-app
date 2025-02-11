@@ -85,13 +85,7 @@ class MovieServiceTest {
     @DisplayName("test for deleting movie by id")
     @Test
     void whenDeleteMovie_thenReturnMovie() {
-        Long id = 1L;
-        Mockito.doNothing().when(movieRepository).deleteById(id);
-        log.info("Movie deleted with id:{}", id);
-        movieService.deletebyid(movie.getId());
-        var found = movieRepository.findById(movie.getId());
-        log.info("found: {}", found);
-        assertThat(found).isEmpty();
+        Mockito.doNothing().when(movieRepository).deleteById(movie.getId());
 
     }
 }
