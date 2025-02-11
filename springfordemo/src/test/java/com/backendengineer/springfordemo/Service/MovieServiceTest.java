@@ -66,7 +66,7 @@ class MovieServiceTest {
         Mockito.when(movieRepository.findAll())
                 .thenReturn(List.of(movie,newMovie));
         var list = movieService.findallmovie();
-        log.info("list: {}", list);
+        log.info("Movie list: {}", list);
         assertThat (list.size()).isEqualTo(2);
     }
 
