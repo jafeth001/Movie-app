@@ -31,8 +31,7 @@ public class MovieController {
     }
 
     @DeleteMapping("/{id}")
-    public String deletebyid(@PathVariable("id") Long id) {
-        movieService.deletebyid(id);
-        return "Movie deleted successfully";
+    public ResponseEntity<String> deletebyid(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(movieService.deletebyid(id));
     }
 }
