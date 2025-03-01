@@ -4,6 +4,8 @@ import com.backendengineer.springfordemo.Entity.Movie;
 import com.backendengineer.springfordemo.Repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@EnableCaching
 @RequiredArgsConstructor
 public class MovieService {
     private final MovieRepository movieRepository;
@@ -23,7 +26,7 @@ public class MovieService {
         log.info("All movies retrieved successfully");
         return movieRepository.findAll();
     }
-
+    @Cacheable(key = "id", value = "Movie")
     public Optional<Movie> findbyid(Long id) {
         log.info("Movie with id {} retrieved successfully", id);
         return movieRepository.findById(id);
