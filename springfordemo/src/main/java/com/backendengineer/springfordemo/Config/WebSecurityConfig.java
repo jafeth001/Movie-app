@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -20,21 +21,18 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf()
-                .disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/auth/**","/movie/**","/review/**")
-                .permitAll()
-                .requestMatchers("/movie/**")
-                .permitAll()
-                .requestMatchers("/review/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                .csrf(AbstractHttpConfigurer::disable)
+
+                .authorizeHttpRequests(authenticate -> {
+                    authenticate.requestMatchers("/auth/**")
+                            .permitAll()
+                            .requestMatchers("/movie/**", "review/**")
+                            .authenticated()
+                            .anyRequest()
+                            .authenticated();
+                })
+
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
