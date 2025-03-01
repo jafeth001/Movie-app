@@ -15,8 +15,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-    private final AuthenticationProvider authenticationProvider;
     private final JwtAuthFilter jwtfilter;
+    private final AuthenticationProvider authenticationProvider;
+    private static final String[] authenticatedURL = {"/movie/**", "review/**"};
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -26,7 +28,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authenticate -> {
                     authenticate.requestMatchers("/auth/**")
                             .permitAll()
-                            .requestMatchers("/movie/**", "review/**")
+                            .requestMatchers(authenticatedURL)
                             .authenticated()
                             .anyRequest()
                             .authenticated();
