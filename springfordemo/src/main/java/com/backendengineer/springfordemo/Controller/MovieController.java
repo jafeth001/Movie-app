@@ -30,6 +30,11 @@ public class MovieController {
         return ResponseEntity.ok(movieService.findbyid(id));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Movie> updateMovie(@PathVariable("id") Long id, @RequestBody Movie movie) {
+        return ResponseEntity.ok(movieService.updateMovie(id,movie));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletebyid(@PathVariable("id") Long id) {
         return ResponseEntity.ok(movieService.deletebyid(id));
