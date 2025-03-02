@@ -21,6 +21,7 @@ import java.util.Optional;
 public class MovieService {
     private final MovieRepository movieRepository;
 
+    @CacheEvict(value = "MovieList", allEntries = true)
     public Movie addMovie(Movie movie) {
         log.info("Movie added successfully");
         return movieRepository.save(movie);
